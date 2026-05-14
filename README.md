@@ -115,12 +115,6 @@ every request. You do not need to manage `x-csrf-token` manually.
 
 ## Websocket / Streaming Notes
 
-The HAR capture in [ws.har](ws.har) shows the browser connecting to:
-
-```text
-wss://api.miniapps.ai/socket.io/?EIO=4&transport=websocket
-```
-
 Observed browser behavior:
 
 - The websocket uses the regular MiniApps cookies.
