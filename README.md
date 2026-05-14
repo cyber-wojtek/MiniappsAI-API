@@ -25,7 +25,7 @@ the HAR-derived details needed to talk to the same backend the browser uses.
 
 ```text
 MiniappsAI-API/
-├── miniapps_api/
+├── miniapps_webapi/
 │   ├── __init__.py        # Public package exports
 │   ├── client.py          # Main client implementation + CLI demo
 │   ├── constants.py       # Shared base URLs, headers, socket details
@@ -36,7 +36,7 @@ MiniappsAI-API/
 The preferred import path is:
 
 ```python
-from miniapps_api import MiniAppsClient
+from miniapps_webapi import MiniAppsClient
 ```
 
 ## Installation
@@ -57,7 +57,7 @@ pip install -e .
 ## Quick Start
 
 ```python
-from miniapps_api import MiniAppsClient
+from miniapps_webapi import MiniAppsClient
 
 client = MiniAppsClient(cookie_file="miniapps_cookies.txt")
 
@@ -72,7 +72,7 @@ If you prefer async usage:
 
 ```python
 import asyncio
-from miniapps_api import AsyncMiniAppsClient
+from miniapps_webapi import AsyncMiniAppsClient
 
 async def main():
 		async with AsyncMiniAppsClient(cookie_file="miniapps_cookies.txt") as client:
@@ -123,7 +123,7 @@ Observed browser behavior:
 - The browser uses websocket transport directly.
 - The Origin header is `https://miniapps.ai`.
 
-Relevant constants are defined in [miniapps_api/constants.py](miniapps_api/constants.py).
+Relevant constants are defined in [miniapps_webapi/constants.py](miniapps_webapi/constants.py).
 
 ## Main API Surface
 
@@ -163,7 +163,7 @@ Relevant constants are defined in [miniapps_api/constants.py](miniapps_api/const
 ### Simple Blocking Chat
 
 ```python
-from miniapps_api import MiniAppsClient
+from miniapps_webapi import MiniAppsClient
 
 client = MiniAppsClient(cookie_file="miniapps_cookies.txt")
 reply = client.chat("claude-37", "Explain recursion simply")
@@ -193,7 +193,7 @@ for fragment in client.chat_stream("claude-37", "Write a haiku about snow"):
 
 ```python
 import asyncio
-from miniapps_api import AsyncMiniAppsClient
+from miniapps_webapi import AsyncMiniAppsClient
 
 async def main():
 		async with AsyncMiniAppsClient() as client:
@@ -256,16 +256,16 @@ for item in recommendations:
 The main client module also contains a small CLI demo.
 
 ```sh
-python -m miniapps_api.client --slug claude-37 --message "Hello"
+python -m miniapps_webapi.client --slug claude-37 --message "Hello"
 ```
 
 Other examples:
 
 ```sh
-python -m miniapps_api.client --info --slug claude-37
-python -m miniapps_api.client --recent
-python -m miniapps_api.client --recommendations
-python -m miniapps_api.client --me
+python -m miniapps_webapi.client --info --slug claude-37
+python -m miniapps_webapi.client --recent
+python -m miniapps_webapi.client --recommendations
+python -m miniapps_webapi.client --me
 ```
 
 ## Reverse-Engineered Details
@@ -281,18 +281,18 @@ the API can change underneath it at any time. The current code assumes:
 
 ## Current Implementation Notes
 
-- `miniapps_api/client.py` is the canonical implementation module.
-- `miniapps_api/__init__.py` re-exports the public classes for clean imports.
-- `miniapps_api/constants.py` centralizes base URLs, headers, and socket event
+- `miniapps_webapi/client.py` is the canonical implementation module.
+- `miniapps_webapi/__init__.py` re-exports the public classes for clean imports.
+- `miniapps_webapi/constants.py` centralizes base URLs, headers, and socket event
 	names.
-- `miniapps_api/exceptions.py` isolates error types.
+- `miniapps_webapi/exceptions.py` isolates error types.
 - `ws.har` documents the websocket handshake used to inform the streaming code.
 
 ## Integration Notes for ChatAI Console
 
 This package is shaped to make later integration easier:
 
-- Import from `miniapps_api`, not a top-level script file.
+- Import from `miniapps_webapi`, not a top-level script file.
 - Keep auth/session handling separate from UI code.
 - Use `MiniAppsClient` for blocking server-side flows.
 - Use `AsyncMiniAppsClient` if you want asyncio-compatible orchestration.
