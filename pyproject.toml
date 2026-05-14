@@ -9,7 +9,7 @@ description = "Reverse-engineered Python client for the MiniApps.ai API"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-keywords = ["miniapps", "ai", "chatbot", "client", "reverse-engineered"]
+keywords = ["miniapps", "ai", "chatbot", "client", "reverse-engineered", "wrapper", "async"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
