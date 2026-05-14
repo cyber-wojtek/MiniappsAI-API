@@ -1,0 +1,8 @@
+requests>=2.31
+python-socketio>=5.11
+websocket-client>=1.7
+
+[dev]
+pytest>=7
+black
+ruff

@@ -1,0 +1,12 @@
+LICENSE
+README.md
+pyproject.toml
+miniapps_webapi/__init__.py
+miniapps_webapi/client.py
+miniapps_webapi/constants.py
+miniapps_webapi/exceptions.py
+miniapps_webapi.egg-info/PKG-INFO
+miniapps_webapi.egg-info/SOURCES.txt
+miniapps_webapi.egg-info/dependency_links.txt
+miniapps_webapi.egg-info/requires.txt
+miniapps_webapi.egg-info/top_level.txt
