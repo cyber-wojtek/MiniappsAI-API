@@ -45,12 +45,11 @@ import uuid
 from http.cookiejar import LWPCookieJar
 from pathlib import Path
 from threading import Event, Lock
-from typing import TYPE_CHECKING, Callable, Optional
+from typing import Callable, Optional
 from urllib.parse import urlencode
 import requests
 
-if TYPE_CHECKING:
-    import socketio
+import socketio
 
 logger = logging.getLogger(__name__)
 
@@ -155,14 +154,13 @@ class MiniAppsClient:
     # ------------------------------------------------------------------
 
     def _refresh_csrf_from_cookies(self) -> None:
-        """Pull the CSRF cookie out of the jar (does not update the header token)."""
+        """Pull the CSRF cookie as a last-resort fallback — only if no token is set."""
+        if self._csrf_token:
+            return
         for cookie in self._session.cookies:
             if cookie.name.lower() in ("x-csrf-token", "csrf-token", "csrftoken",
                                        "__host-miniapps.x-csrf-token"):
-                # Store cookie value as fallback; fetch_csrf() will override with
-                # the proper header token returned by GET /auth/csrf.
-                if not self._csrf_token:
-                    self._csrf_token = cookie.value
+                self._csrf_token = cookie.value
                 return
 
     def _headers(self, extra: dict | None = None) -> dict:
